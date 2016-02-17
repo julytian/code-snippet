@@ -159,4 +159,51 @@ function getCookie(cookieName) {
     return cookie;
 }
 ```
+#### Ajax简单封装
 
+```javascript
+function ajax(url, options) {
+
+    var dataResult; //结果data
+
+    // 处理data
+    if (typeof(options.data) === 'object') {
+        var str = '';
+        for (var c in options.data) {
+            str = str + c + '=' + options.data[c] + '&';
+        }
+        dataResult = str.substring(0, str.length - 1);
+    }
+
+    // 处理type
+    options.type = options.type || 'GET';
+
+    //获取XMLHttpRequest对象
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+
+    // 发送请求
+    oXhr.open(options.type, url, true);
+    if (options.type == 'GET') {
+        oXhr.send(null);
+    } else {
+        oXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        oXhr.send(dataResult);
+    }
+
+    // readyState
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                if (options.onsuccess) {
+                    options.onsuccess(xhr.responseText, xhr.responseXML);
+                }
+            } else {
+                if (options.onfail) {
+                    options.onfail();
+                }
+            }
+        }
+    };
+}
+
+```
