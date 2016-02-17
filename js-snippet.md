@@ -67,3 +67,29 @@ function isMobilePhone(phone) {
     return pattern.test(phone);
 }
 ```
+#### 使用原生JS实现jQuery的addClass, removeClass, hasClass函数功能
+
+```javascript
+function hasClass(obj, cls) {  
+    return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));  
+}  
+  
+function addClass(obj, cls) {  
+    if (!this.hasClass(obj, cls)) obj.className += " " + cls;  
+}  
+  
+function removeClass(obj, cls) {  
+    if (hasClass(obj, cls)) {  
+        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');  
+        obj.className = obj.className.replace(reg, ' ');  
+    }  
+}  
+  
+function toggleClass(obj,cls){  
+    if(hasClass(obj,cls)){  
+        removeClass(obj, cls);  
+    }else{  
+        addClass(obj, cls);  
+    }  
+}  
+```
