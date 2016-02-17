@@ -51,3 +51,19 @@ function trim(str) {
     return str.replace(/^\s+|\s+$/g, '');
 }
 ```
+
+#### 判断手机号和邮箱
+
+```javascript
+// 判断是否为邮箱地址
+function isEmail(emailStr) {
+    var pattern = /^(\w+\.)*\w+@\w+(\.\w+)+$/;
+    return pattern.test(emailStr);
+}
+
+// 判断是否为手机号
+function isMobilePhone(phone) {
+    var pattern = /^(\+\d{1,4})?\d{7,11}$/;
+    return pattern.test(phone);
+}
+```
