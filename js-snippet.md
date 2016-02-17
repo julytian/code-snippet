@@ -114,3 +114,49 @@ function removeEvent(element, event, listener) {
     }
 }
 ```
+
+#### 事件代理
+
+```javascript
+function delegateEvent(element,tag,eventName,listener){
+    addEvent(element, eventName, function(event){
+        var target = event.target || event.srcElement;
+        if(target.tagName.toLowerCase() == tag.toLowerCase()) {
+            listener.call(target, event);
+        }
+    });
+}
+```
+
+#### cookie获取与设置
+
+```javascript
+
+// 设置cookie
+function setCookie(cookieName, cookieValue, expiredays) {
+    var cookie = cookieName + "=" + encodeURIComponent(cookieValue);
+    if (typeof expiredays === "number") {
+        cookie += ";max-age=" + (expiredays * 60 * 60 * 24);
+    }
+    document.cookie = cookie;
+}
+
+// 获取cookie值
+function getCookie(cookieName) {
+    var cookie = {};
+    var all = document.cookie;
+    if (all==="") {
+        return cookie;
+    }
+    var list = all.split("; ");
+    for (var i = 0; i < list.length; i++) {
+        var p = list[i].indexOf("=");
+        var name = list[i].substr(0, p);
+        var value = list[i].substr(p + 1);
+        value = decodeURIComponent(value);
+        cookie[name] = value;
+    }
+    return cookie;
+}
+```
+
